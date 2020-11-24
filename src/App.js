@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import './index.css';
 
 class App extends Component {
   constructor(props){
@@ -50,38 +51,50 @@ deleteItem(id){
 }
 render() {
   return (
-    <div className="App">
-      <div>
-        Add an item...
-        <br />
-        <input 
-          type="text"
-          placeholder="Type an item here..."
-          value={this.state.newItem}
-          onChange={e => this.updateInput("newItem", e.target.value)}
+    <div>
+
+      <h1 className="app-title">MY LIST</h1>
+        
+        <div className="container">
+        <div
+          style={{
+            padding: 30,
+            textAlign: "left",
+            maxWidth: 500,
+            margin: "auto"
+          }}
+        >
+          Add an Item...
+          <br />
+          <input
+            type="text"
+            placeholder="Type item here"
+            value={this.state.newItem}
+            onChange={e => this.updateInput("newItem", e.target.value)}
           />
           <button
+            className="add-btn btn-floating"
             onClick={() => this.addItem()}
+            disabled={!this.state.newItem.length}
           >
-            Add
+            <i class="material-icons"> + </i>
           </button>
-          <br />
+          <br /> <br />
           <ul>
             {this.state.list.map(item => {
-              return(
+              return (
                 <li key={item.id}>
                   {item.value}
-                  <button
-                    onClick={() => this.deleteItem(item.id)}
-                  >
-                    X
+                  <button className="btn btn-floating" onClick={() => this.deleteItem(item.id)}>
+                    <i class="material-icons">x</i>
                   </button>
                 </li>
-              )
+              );
             })}
           </ul>
+        </div>
       </div>
-    </div>
+      </div>
   );
 }
 }
